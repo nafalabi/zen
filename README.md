@@ -1,4 +1,7 @@
-# Zen
+# Zen (Fork)
+
+> Fork of [hypersequent/zen](https://github.com/Hypersequent/zen).
+> Added option to ignore validations
 
 Zod + Generate = Zen
 
@@ -192,6 +195,30 @@ indent level is for passing to other converter APIs.
 | required | Required    |
 
 - required checks that the value is not default, but we are not implementing this check for numbers and booleans
+
+## Ignore specific validations
+If you got error caused by some validations that are not yet supported by us, you can try to ignore them by doing this:
+
+```go
+	// uri & custom are not in the supported validation list
+	type IgnoredType struct {
+		Name string `validate="uri,custom"`
+		Number int `validate="custom"`
+	}
+	c := NewConverter(make(map[string]CustomFn))
+	c.SetIgnores([]string{"custom", "uri"})
+
+	c.AddType(IgnoredType{})
+	c.Export()
+```
+it will be converted to this:
+```typescript
+export const IgnoredTypeSchema = z.object({
+  Name: z.string(),
+  Number: z.number(),
+})
+export type IgnoredType = z.infer<typeof IgnoredTypeSchema>
+```
 
 ## Caveats
 
