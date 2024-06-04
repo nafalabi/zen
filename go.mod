@@ -1,4 +1,4 @@
-module github.com/hypersequent/zen
+module github.com/nafalabi/zen
 
 go 1.21
 
