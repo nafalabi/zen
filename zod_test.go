@@ -1997,7 +1997,7 @@ export type User = z.infer<typeof UserSchema>
 
 func TestCustom(t *testing.T) {
 	c := NewConverter(map[string]CustomFn{
-		"github.com/hypersequent/zen.Decimal": func(c *Converter, t reflect.Type, s, g, validate string, i int) string {
+		"github.com/nafalabi/zen.Decimal": func(c *Converter, t reflect.Type, s, g, validate string, i int) string {
 			return "z.string()"
 		},
 	})
